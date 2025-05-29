@@ -1,3 +1,5 @@
 <template>
-  <h1 class="text-3xl underline">Index page</h1>
+    <div class="h-screen text-stone-300">
+        <HomeInfoView />
+    </div>
 </template>

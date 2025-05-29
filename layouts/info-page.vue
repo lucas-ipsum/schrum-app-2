@@ -8,7 +8,7 @@
     </div>
     <!-- App Title -->
     <div class="flex justify-center text-center">
-        <h1 class="text-stone-300 text-5xl sm:text-4xl font-semibold">Schrum 2024</h1>
+        <h1 class="text-stone-300 text-5xl sm:text-4xl font-semibold">Title</h1>
     </div>
       <slot />
     </div>
