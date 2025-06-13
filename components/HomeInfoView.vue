@@ -5,11 +5,13 @@
       <div class="flex flex-col justify-center text-center">
         <h1 class="text-stone-300 text-5xl sm:text-8xl font-extrabold">
           Title
+          <font-awesome :icon="['fas', 'circle']" />
         </h1>
         <h2 class="text-stone-300 my-auto text-3xl sm:text-4xl font-semibold">
           Date
         </h2>
       </div>
+      <font-awesome icon="circle" />
       <!-- Festival Logo -->
       <div class="flex justify-center">
         <!--img class="rounded w-[80%] md:w-[350px]" src="/icons/schrum_logo_24.png" alt="">-->
