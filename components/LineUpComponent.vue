@@ -41,6 +41,15 @@
 <script setup>
   // TODO Friday and Saturday should be not duplicated code
 
+const props = defineProps({
+  artistsFriday: {
+    type: Array
+  },
+  artistsSaturday: {
+    type: Array
+  }
+})
+/*
   const artistsFriday = ref([
     {
       name: "Test",
@@ -54,4 +63,5 @@
       genre: "Test",
     },
   ]);
+  */
 </script>
