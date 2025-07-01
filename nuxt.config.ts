@@ -6,8 +6,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
   vite: { plugins: [tailwindcss()] },
-  modules: ["@nuxtjs/strapi"],
-
+  modules: ["@nuxtjs/strapi", "@vesp/nuxt-fontawesome"],
+  fontawesome: {
+    icons: {
+      solid: ['circle', 'dollar-sign']
+    }
+  },
   strapi: {
     url: process.env.STRAPI_URL || "http://localhost:1337",
     prefix: "/api",

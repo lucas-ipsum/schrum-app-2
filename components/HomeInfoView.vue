@@ -11,7 +11,6 @@
           Date
         </h2>
       </div>
-      <font-awesome icon="circle" />
       <!-- Festival Logo -->
       <div class="flex justify-center">
         <!--img class="rounded w-[80%] md:w-[350px]" src="/icons/schrum_logo_24.png" alt="">-->
