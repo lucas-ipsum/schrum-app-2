@@ -19,7 +19,7 @@
   </div>
 
   <!-- Saturday -->
-  <h3 class="text-stone-300 text-xl sm:text-xl font-bold">Samstag</h3>
+  <h3 class="text-stone-300 text-xl sm:text-2xl font-bold">Samstag</h3>
   <div class="wrap">
     <div class="flex flex-wrap text-xl text-nowrap font-semibold">
       <div class="flex w-fit" v-for="(artist, index) in artistsSaturday">
