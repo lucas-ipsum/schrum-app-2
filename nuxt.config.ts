@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
   vite: { plugins: [tailwindcss()] },
-  modules: ["@nuxtjs/strapi", "@vesp/nuxt-fontawesome"],
+  modules: ["@nuxtjs/strapi", "@vesp/nuxt-fontawesome", "@pinia/nuxt"],
   fontawesome: {
     icons: {
       solid: ['circle', 'dollar-sign']
