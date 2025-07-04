@@ -22,7 +22,7 @@
     >
       Mit dem Auto
     </h2>
-    <CarSection />
+    <CarSection :travelInformation="travelInformation"/>
 
     <!-- train section -->
     <h2
@@ -30,7 +30,7 @@
     >
       Mit dem Zug
     </h2>
-    <TrainSection />
+    <TrainSection :travelInformation="travelInformation"/>
   </div>
   <PopupImage
     @displayPopupChange="(res) => (displayMap = res)"
