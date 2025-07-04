@@ -4,7 +4,7 @@
       {{ announcementDetails.category }}
     </span>
     <span>
-      {{ announcementDetails.date }}
+      {{ format(new Date(announcementDetails.date), "iii dd.MM.") }}
     </span>
     <span>
       {{ announcementDetails.content }}
@@ -13,6 +13,8 @@
 </template>
 
 <script setup>
+  import { format } from "date-fns";
+
   const props = defineProps({
     announcementDetails: {
       type: Object,
