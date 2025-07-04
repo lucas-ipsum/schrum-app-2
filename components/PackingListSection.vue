@@ -1,21 +1,27 @@
 <template>
-    <div class="flex flex-col">
-        <ul class="text-lg mw-[400px]">
-            <li>
-                Placeholder
-            </li>
-        </ul>
-    </div>
+  <div class="flex flex-col">
+    <div
+      class="text-lg mw-[400px] markdown-list"
+      v-html="contentPackingList"
+    ></div>
+  </div>
 </template>
 
-<style scoped>
-ul {
-  list-style-type: circle; /* Change bullet style */
-  /* Other list styles */
-}
+<script setup>
+  // ## Props ##
+  const props = defineProps({
+    packingList: {
+      type: Object,
+      required: true,
+    },
+  });
 
-ul li {
-margin-left: 22px;
-  margin-bottom: 8px; /* Example: Add margin between list items */
-}
-</style>
+  // ## refs ##
+  const contentPackingList = ref(null);
+  // Markdown
+  const { $markdown } = useNuxtApp();
+
+  if (props.packingList) {
+    contentPackingList.value = $markdown.render(props.packingList.listContent);
+  }
+</script>
