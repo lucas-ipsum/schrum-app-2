@@ -3,7 +3,7 @@
     <div class="flex gap-6 justify-center">
       <button
         @click="displayMap = true"
-        class="outline outline-2 p-4 flex font-semibold w-fit"
+        class="outline-2 p-4 flex font-semibold w-fit"
       >
         <span> Karte anzeigen </span>
       </button>
@@ -11,7 +11,7 @@
         :href="props.travelInformation.mapsUrl"
         target="_blank"
         rel="noopener noreferrer"
-        class="outline outline-2 p-4 flex font-semibold w-fit"
+        class="outline-2 p-4 flex font-semibold w-fit"
       >
         Google Maps
       </a>
