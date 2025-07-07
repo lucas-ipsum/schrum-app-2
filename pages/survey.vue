@@ -19,7 +19,7 @@
   <div class="text-center mb-5">
     <h2 class="text-stone-300 text-3xl sm:text-5xl font-semibold">Umfrage</h2>
   </div>
-  <div class="flex justify-center">Placeholder</div>
+  <SurveySection />
 </template>
 
 <script setup>
