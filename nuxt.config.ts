@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/strapi", "@vesp/nuxt-fontawesome", "@pinia/nuxt"],
   fontawesome: {
     icons: {
-      solid: ["circle", "dollar-sign"],
+      solid: ["circle", "dollar-sign", "right-from-bracket"],
     },
   },
   strapi: {
