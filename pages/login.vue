@@ -33,7 +33,7 @@
   const onSubmit = async () => {
     try {
       await login({ identifier: email.value, password: password.value });
-
+      useUserStore().loginUser();
       router.push("/");
     } catch (e) {}
   };

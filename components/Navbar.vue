@@ -25,6 +25,7 @@
 
   const onClick = () => {
     logout();
+    useUserStore().logoutUser();
     router.push("/login");
   };
 </script>
