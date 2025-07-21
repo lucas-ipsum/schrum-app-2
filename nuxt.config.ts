@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     url:
       process.env.STRAPI_URL ||
       "http://localhost:1337" ||
-      "https://https://strapi-cms.schrum.xyz" ||
+      "https://strapi-cms.schrum.xyz" ||
       "https:schrum.xyz:1337",
     prefix: "/api",
     admin: "/admin",
