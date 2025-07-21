@@ -20,9 +20,9 @@ export default defineNuxtConfig({
   strapi: {
     url:
       process.env.STRAPI_URL ||
-      "http://localhost:1337" ||
-      "https://strapi-cms.schrum.xyz" ||
-      "https:schrum.xyz:1337",
+      (process.env.NODE_ENV === "production"
+        ? "https://strapi-cms.schrum.xyz"
+        : "http://localhost:1337"),
     prefix: "/api",
     admin: "/admin",
     version: "v5",
@@ -35,3 +35,4 @@ export default defineNuxtConfig({
     cookieName: "strapi_jwt",
   },
 });
+
