@@ -6,7 +6,15 @@
         <h1 class="text-stone-300 text-5xl sm:text-8xl font-extrabold">
           {{ festivalInformation?.name }}
         </h1>
-        <img class="rounded w-[80%] md:w-[350px] my-3" src="http://localhost:1337/uploads/schrum_logo_25_fbda9a094a.jpg" alt="" />
+        <img
+          class="rounded w-[80%] md:w-[350px] my-3"
+          :src="
+            useIsDev().isDev
+              ? 'http://localhost:1337/uploads/schrum_logo_25_fbda9a094a.jpg'
+              : ''
+          "
+          alt=""
+        />
         {{ festivalInformation.image }}
         <h2
           v-if="festivalInformation"
