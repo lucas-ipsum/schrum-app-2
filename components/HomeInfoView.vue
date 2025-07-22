@@ -15,7 +15,6 @@
           "
           alt=""
         />
-        {{ festivalInformation.image }}
         <h2
           v-if="festivalInformation"
           class="text-stone-300 my-auto text-3xl sm:text-4xl font-semibold"
@@ -48,6 +47,26 @@
   // ## Refs ##
   const navbarOpen = ref(false);
 
-  const store = useFestivalInformationStore();
-  const { festivalInformation } = storeToRefs(store);
+  //const store = useFestivalInformationStore();
+  //const { festivalInformation } = storeToRefs(store);
+
+    const { find } = useStrapi();
+
+  // ## Refs ##
+  const festivalInformation = ref(null);
+
+  // ### Events ###
+  onMounted(() => {
+    getData();
+  });
+
+  // ### API Requests ###
+  const getData = async () => {
+    try {
+      const { data } = await find("event-detail");
+      useFestivalInformationStore().setFestivalInformation(data);
+    } catch {
+      console.error("An error occured while loading data");
+    }
+  };
 </script>
