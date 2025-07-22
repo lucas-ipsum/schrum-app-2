@@ -30,11 +30,22 @@
       <div class="flex flex-col gap-2 font-bold ml-2">
         <fieldset>
           <div>
-            <input type="radio" id="car" name="arrival" value="car" />
-            <label class="ml-2" for="car"
-              >Eigenes Auto (Nur als Fahrer*in angeben, wir wollen wissen wie
-              viele Autos ca. da sind)</label
-            >
+            <input
+              type="radio"
+              id="car_driver"
+              name="arrival"
+              value="car_driver"
+            />
+            <label class="ml-2" for="car_driver">Auto Fahrer*in</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="car_passenger"
+              name="arrival"
+              value="car_passenger"
+            />
+            <label class="ml-2" for="car_passenger">Auto Beifahrer*in</label>
           </div>
           <div>
             <input type="radio" id="train" name="arrival" value="train" />
@@ -53,25 +64,67 @@
       <p class="font-3xl font-extrabold">Bock auf Frühstück?</p>
       <div class="flex flex-col gap-2 font-bold ml-2">
         <div>
-          <input type="checkbox" id="saturday" name="saturday" value="saturday" />
+          <input
+            type="checkbox"
+            id="saturday"
+            name="saturday"
+            value="saturday"
+          />
           <label class="ml-2" for="saturday">Samstag</label>
+        </div>
+        <div>
+          <input type="checkbox" id="sunday" name="sunday" value="sunday" />
+          <label class="ml-2" for="sunday">Sonntag</label>
         </div>
         <div>
           <input
             type="checkbox"
-            id="sunday"
-            name="sunday"
-            value="sunday"
+            id="no_breakfast"
+            name="no_breakfast"
+            value="no_breakfast"
           />
-          <label class="ml-2" for="sunday">Sonntag</label>
-        </div>
-        <div>
-          <input type="checkbox" id="no_breakfast" name="no_breakfast" value="no_breakfast" />
           <label class="ml-2" for="no_breakfast">Nope</label>
         </div>
+      </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="">
+      <p class="font-3xl font-extrabold">Als Künstler*in dabei?</p>
+      <div class="flex flex-col gap-2 font-bold ml-2">
+        <fieldset>
+          <div>
+            <input type="radio" id="yes" name="artist" value="yes" />
+            <label class="ml-2" for="yes">Ja</label>
+          </div>
+
+          <div>
+            <input type="radio" id="no" name="artist" value="no" />
+            <label class="ml-2" for="no">Nein</label>
+          </div>
+        </fieldset>
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+  const surveyResponse = ref({
+    attending: {
+      friday: false,
+      saturday: false,
+      tent: false,
+    },
+    arrival: {
+      car_driver: false,
+      car_passenger: false,
+      train: false,
+      other: false,
+    },
+    breakfast: {
+      friday: false,
+      saturday: false,
+      no_breakfast: false,
+    },
+  });
+</script>
