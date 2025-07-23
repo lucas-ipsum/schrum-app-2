@@ -167,7 +167,7 @@
         </div>
       </div>
     </div>
-    <shared-submit-button text="Absenden" @submit="submitData"/> 
+    <shared-submit-button text="Absenden" @submit="submitData" />
   </div>
   {{ surveyResponse }}
 </template>
@@ -209,17 +209,32 @@
     artist: false,
   });
 
+  // ## Events ##
+  watch(
+    surveyResponse.value,
+    () => {
+      console.log("hi");
+      checkData();
+    },
+    { deep: true }
+  );
+
   // data checks
   const checkData = () => {
+    // train and shuttle time check
     if (surveyResponse.value.arrival.train) {
       surveyResponse.value.shuttle.day = null;
       surveyResponse.value.shuttle.hour = null;
     }
+    //
+    if (surveyResponse.value.breakfast.no_breakfast) {
+      surveyResponse.value.breakfast.saturday = false;
+      surveyResponse.value.breakfast.sunday = false;
+    }
   };
 
-  // submit data 
+  // submit data
   const submitData = () => {
     checkData();
-
-  }
+  };
 </script>
