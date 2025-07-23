@@ -48,7 +48,7 @@
               id="car_driver"
               name="arrival"
               value="car_driver"
-              v-model="surveyResponse.arrival.car_driver"
+              v-model="surveyResponse.arrival"
             />
             <label class="ml-2" for="car_driver">Auto Fahrer*in</label>
           </div>
@@ -58,7 +58,7 @@
               id="car_passenger"
               name="arrival"
               value="car_passenger"
-              v-model="surveyResponse.arrival.car_passenger"
+              v-model="surveyResponse.arrival"
             />
             <label class="ml-2" for="car_passenger">Auto Beifahrer*in</label>
           </div>
@@ -68,7 +68,7 @@
               id="train"
               name="arrival"
               value="train"
-              v-model="surveyResponse.arrival.train"
+              v-model="surveyResponse.arrival"
             />
             <label class="ml-2" for="train">Zug</label>
           </div>
@@ -78,7 +78,7 @@
               id="other"
               name="arrival"
               value="other"
-              v-model="surveyResponse.arrival.other"
+              v-model="surveyResponse.arrival"
             />
             <label class="ml-2" for="other">Andere</label>
           </div>
@@ -87,7 +87,7 @@
     </div>
 
     <!-- Question Shuttle time -->
-    <div v-if="surveyResponse.arrival.train" class="">
+    <div v-if="surveyResponse.arrival == 'train'" class="">
       <p class="font-3xl font-extrabold">Abholzeit am Bahnhof:</p>
       <div class="flex flex-col gap-2 font-bold ml-2">
         <fieldset>
@@ -167,13 +167,34 @@
         </div>
       </div>
     </div>
-    <shared-submit-button text="Absenden" @submit="submitData" />
+    <div class="flex justify-center w-full">
+      <shared-submit-button
+        v-if="!surveyDataExists"
+        text="Absenden"
+        @submit="submitData"
+      />
+      <shared-submit-button
+        v-if="surveyDataExists"
+        text="Änderungen absenden"
+        @submit="submitData"
+      />
+    </div>
+    <!-- Error / success message-->
+    <p v-if="displayMessage">{{ messageContent }}</p>
   </div>
-  {{ surveyResponse }}
 </template>
 
 <script setup>
+  const { create, find, update } = useStrapi();
+  const user = useStrapiUser();
+
   // ## refs and input data ##
+  // dsiplay values
+  const displayMessage = ref(false);
+  const messageContent = ref(false);
+
+  const surveyDataExists = ref(false);
+  const currentSurveyId = ref(null);
   const shuttleTimeOptions = ref([
     "12:00",
     "13:00",
@@ -186,17 +207,13 @@
     "20:00",
   ]);
   const surveyResponse = ref({
+    username: user?.value.username,
     attending: {
       friday: false,
       saturday: false,
       tent: false,
     },
-    arrival: {
-      car_driver: false,
-      car_passenger: false,
-      train: false,
-      other: false,
-    },
+    arrival: "",
     shuttle: {
       day: null,
       hour: null,
@@ -210,15 +227,29 @@
   });
 
   // ## Events ##
+  onMounted(() => {
+    checkForExcistingData();
+  });
+
   watch(
     surveyResponse.value,
     () => {
-      console.log("hi");
       checkData();
     },
     { deep: true }
   );
 
+  // check for available data
+  const checkForExcistingData = async () => {
+    const { data } = await find("survey-answears", {
+      filters: { user_id: user.id },
+    });
+    if (data[0]) {
+      currentSurveyId.value = data[0].id;
+      surveyDataExists.value = true;
+      surveyResponse.value = data[0].response;
+    }
+  };
   // data checks
   const checkData = () => {
     // train and shuttle time check
@@ -234,7 +265,30 @@
   };
 
   // submit data
-  const submitData = () => {
+  const submitData = async () => {
     checkData();
+    try {
+      // update survey data
+      if (surveyDataExists.value) {
+        await update("survey-answears", currentSurveyId.value, {
+          response: surveyResponse.value,
+          user_id: user.id,
+        });
+        // create survey data
+      } else {
+        await create("survey-answears", {
+          response: surveyResponse.value,
+          user_id: user.id,
+        });
+      }
+      surveyDataExists.value = true;
+      displayMessage.value = true;
+      messageContent.value = "Umfrage erfolgreich abgesendet.";
+    } catch (err) {
+      displayMessage.value = true;
+      messageContent.value =
+        "Fehler beim absenden der Umfrage aufgetreten. Bitte erneut versuchen!";
+      console.error(err);
+    }
   };
 </script>
