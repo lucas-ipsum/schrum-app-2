@@ -245,7 +245,7 @@
       filters: { user_id: user.id },
     });
     if (data[0]) {
-      currentSurveyId.value = data[0].id;
+      currentSurveyId.value = data[0].documentId;
       surveyDataExists.value = true;
       surveyResponse.value = data[0].response;
     }
