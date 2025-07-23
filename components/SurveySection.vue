@@ -161,9 +161,19 @@
             id="yes"
             name="yes"
             value="yes"
-            v-model="surveyResponse.artist"
+            v-model="surveyResponse.artist.isArtist"
           />
           <label class="ml-2" for="yes">Ja</label>
+        </div>
+        <div v-if="surveyResponse.artist.isArtist" class="flex flex-col">
+          <label class="ml-2" for="band_name">Band / Name:</label>
+          <input
+            class="bg-white rounded p-1 w-[250px] text-black"
+            type="text"
+            id="band_name"
+            name="band_name"
+            v-model="surveyResponse.artist.band_name"
+          />
         </div>
       </div>
     </div>
@@ -223,7 +233,10 @@
       saturday: false,
       no_breakfast: false,
     },
-    artist: false,
+    artist: {
+      isArtist: false,
+      band_name: "",
+    },
   });
 
   // ## Events ##
@@ -261,6 +274,10 @@
     if (surveyResponse.value.breakfast.no_breakfast) {
       surveyResponse.value.breakfast.saturday = false;
       surveyResponse.value.breakfast.sunday = false;
+    }
+    // artists section
+    if (!surveyResponse.value.artist.isArtist) {
+      surveyResponse.value.artist.band_name = "";
     }
   };
 
