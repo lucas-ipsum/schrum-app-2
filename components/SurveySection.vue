@@ -32,7 +32,7 @@
             value="tent"
             v-model="surveyResponse.attending.tent"
           />
-          <label class="ml-2" for="tent">Mit Zelt</label>
+          <label class="ml-2" for="tent">Mit Zelt (hier nur eine Person pro Zelt angeben, wollen ungefähr wissen für wie viele Zelte wir Platz brauchen)</label>
         </div>
       </div>
     </div>
@@ -138,16 +138,6 @@
           />
           <label class="ml-2" for="sunday">Sonntag</label>
         </div>
-        <div>
-          <input
-            type="checkbox"
-            id="no_breakfast"
-            name="no_breakfast"
-            value="no_breakfast"
-            v-model="surveyResponse.breakfast.no_breakfast"
-          />
-          <label class="ml-2" for="no_breakfast">Nope</label>
-        </div>
       </div>
     </div>
 
@@ -229,9 +219,8 @@
       hour: null,
     },
     breakfast: {
-      friday: false,
       saturday: false,
-      no_breakfast: false,
+      sunday: false,
     },
     artist: {
       isArtist: false,
@@ -256,7 +245,7 @@
   const checkForExcistingData = async () => {
     try {
       const { data } = await find("survey-answears", {
-        filters: { user_id: user.id },
+        filters: { user_id: user.value.id },
       });
       if (data[0]) {
         currentSurveyId.value = data[0].documentId;
@@ -264,7 +253,7 @@
         surveyResponse.value = data[0].response;
       }
     } catch (err) {
-      console.error('An error occured while loading data: ', err);
+      console.error("An error occured while loading data: ", err);
     }
   };
   // data checks
@@ -293,13 +282,13 @@
       if (surveyDataExists.value) {
         await update("survey-answears", currentSurveyId.value, {
           response: surveyResponse.value,
-          user_id: user.id,
+          user_id: user.value.id,
         });
         // create survey data
       } else {
         await create("survey-answears", {
           response: surveyResponse.value,
-          user_id: user.id,
+          user_id: user.value.id,
         });
       }
       surveyDataExists.value = true;
