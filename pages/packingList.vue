@@ -20,7 +20,7 @@
     <h2 class="text-stone-300 text-3xl sm:text-5xl font-semibold">Packliste</h2>
   </div>
   <div class="px-4 sm:px-16">
-    <PackingListSection :packing-list="packingList" />
+    <PackingListSection v-if="packingList" :packing-list="packingList" />
   </div>
 </template>
 

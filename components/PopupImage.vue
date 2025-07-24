@@ -1,8 +1,7 @@
 <template>
   <div v-if="showPopup" class="image-popup" @click="closePopup">
-    <div class="popup-content">
-      <slot name="image" />
-      <!--<img :src="imgSrc" alt="Fullscreen Image" @click.stop />-->
+    <div v-if="imgSrc" class="popup-content">
+      <img :src="imgSrc" alt="Fullscreen Image" @click.stop />
     </div>
   </div>
 </template>
@@ -20,11 +19,6 @@
     },
   });
   const showPopup = ref(false);
-
-  onMounted(() => {
-    console.log("mounted");
-    console.log(props.imgSrc);
-  });
 
   // Watch changes in props
   watch(
