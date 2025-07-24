@@ -25,6 +25,11 @@
 <script setup>
   import { format } from "date-fns";
 
+  // page
+  useHead({
+    title: "Umfrage - Schrum",
+  });
+
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
 </script>

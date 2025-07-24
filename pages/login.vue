@@ -27,6 +27,11 @@
   const { login } = useStrapiAuth();
   const router = useRouter();
 
+  // page
+  useHead({
+    title: "Login - Schrum",
+  });
+
   // ## refs ##
   const email = ref("");
   const password = ref("");
@@ -38,8 +43,8 @@
       useUserStore().loginUser();
       router.push("/");
     } catch (e) {
-      console.error('An error occured: ', e);
-      displayErrorMessage.value = true; 
+      console.error("An error occured: ", e);
+      displayErrorMessage.value = true;
     }
   };
 </script>

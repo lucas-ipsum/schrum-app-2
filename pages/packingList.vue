@@ -32,6 +32,11 @@
   // ## refs ##
   const packingList = ref(null);
 
+  // page
+  useHead({
+    title: "Packliste - Schrum",
+  });
+
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
 

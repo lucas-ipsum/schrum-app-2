@@ -58,6 +58,11 @@
   import TrainSection from "~/components/travelInfo/TrainSection.vue";
   import { format } from "date-fns";
 
+  // page
+  useHead({
+    title: "Anreise - Schrum",
+  });
+
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
 
