@@ -32,7 +32,7 @@
             value="tent"
             v-model="surveyResponse.attending.tent"
           />
-          <label class="ml-2" for="tent">Mit Zelt</label>
+          <label class="ml-2" for="tent">Mit Zelt (hier nur eine Person pro Zelt angeben, wollen ungefähr wissen für wie viele Zelte wir Platz brauchen)</label>
         </div>
       </div>
     </div>
@@ -138,16 +138,6 @@
           />
           <label class="ml-2" for="sunday">Sonntag</label>
         </div>
-        <div>
-          <input
-            type="checkbox"
-            id="no_breakfast"
-            name="no_breakfast"
-            value="no_breakfast"
-            v-model="surveyResponse.breakfast.no_breakfast"
-          />
-          <label class="ml-2" for="no_breakfast">Nope</label>
-        </div>
       </div>
     </div>
 
@@ -229,9 +219,8 @@
       hour: null,
     },
     breakfast: {
-      friday: false,
       saturday: false,
-      no_breakfast: false,
+      sunday: false,
     },
     artist: {
       isArtist: false,
@@ -299,7 +288,7 @@
       } else {
         await create("survey-answears", {
           response: surveyResponse.value,
-          user_id: user.documentId,
+          user_id: user.value.id,
         });
       }
       surveyDataExists.value = true;
