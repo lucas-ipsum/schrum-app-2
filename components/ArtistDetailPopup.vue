@@ -4,7 +4,7 @@
       <h1 class="font-bold text-4xl">{{ artistData?.name }}</h1>
       <p class="font-semibold">{{ artistData?.genre }}</p>
       <p>{{ artistData?.description }}</p>
-      <div class="w-full flex justify-evenly">
+      <div v-if="artistData?.musicExample" class="w-full flex justify-evenly">
         <a
           class="cursor-pointer"
           :href="artistData?.musicExample"
