@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="w-full">
+  <div v-if="jwt" class="w-full">
     <ul class="flex flex-wrap gap-3 w-full">
       <NavbarLink link="/" title="Home" />
       <NavbarLink link="/travelInfo" title="Anreise" />
@@ -22,6 +22,7 @@
 <script setup>
   const { logout } = useStrapiAuth();
   const router = useRouter();
+  const jwt = useCookie("strapi_jwt"); 
   const user = useStrapiUser();
 
   const onClick = () => {
