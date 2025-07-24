@@ -22,7 +22,18 @@
   // Strapi
   const { find } = useStrapi();
 
+  // events
+  onMounted(() => {
+    getData();
+  });
+
   // ## Api call ##
-  const res = await find("announcements");
-  announcements.value = res.data;
+  const getData = async () => {
+    try {
+      const res = await find("announcements");
+      announcements.value = res.data;
+    } catch (err) {
+      console.error("An error occured: ", err);
+    }
+  };
 </script>

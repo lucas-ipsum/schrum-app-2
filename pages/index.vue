@@ -5,5 +5,8 @@
 </template>
 
 <script>
-
+  // page
+  useHead({
+    title: "Schrum",
+  });
 </script>

@@ -20,7 +20,7 @@
     <h2 class="text-stone-300 text-3xl sm:text-5xl font-semibold">Packliste</h2>
   </div>
   <div class="px-4 sm:px-16">
-    <PackingListSection :packing-list="packingList" />
+    <PackingListSection v-if="packingList" :packing-list="packingList" />
   </div>
 </template>
 
@@ -32,10 +32,26 @@
   // ## refs ##
   const packingList = ref(null);
 
+  // page
+  useHead({
+    title: "Packliste - Schrum",
+  });
+
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
 
+  // events
+  onMounted(() => {
+    getData();
+  });
+
   // ## Api call ##
-  const res = await find("packing-list");
-  packingList.value = res.data;
+  const getData = async () => {
+    try {
+      const res = await find("packing-list");
+      packingList.value = res.data;
+    } catch (err) {
+      console.error("An error occured: ", err);
+    }
+  };
 </script>

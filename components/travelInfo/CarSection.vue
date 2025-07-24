@@ -40,7 +40,7 @@
   <PopupImage
     @displayPopupChange="(res) => (displayMap = res)"
     :displayPopup="displayMap"
-    :imgSrc="props.travelInformation.mapTravelInfo"
+    imgSrc="http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg"
   />
 </template>
 

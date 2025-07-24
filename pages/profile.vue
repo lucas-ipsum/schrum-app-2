@@ -3,11 +3,18 @@
     <div class="flex flex-col gap-2">
       <p class="font-semibold text-xl">Name: {{ user?.username }}</p>
       <p class="font-semibold text-xl">E-Mail: {{ user?.email }}</p>
-      <SharedSubmitButton v-if="!displayChangePasswordSection" @submit="displayChangePasswordSection = true" text="Passwort ändern" />
+      <SharedSubmitButton
+        v-if="!displayChangePasswordSection"
+        @submit="displayChangePasswordSection = true"
+        text="Passwort ändern"
+      />
     </div>
   </div>
   <div v-if="displayChangePasswordSection" class="flex justify-center mt-10">
-      <ChangePassword @abort="displayChangePasswordSection =false" @password-changed="passwordChangeSuccessfull"/>
+    <ChangePassword
+      @abort="displayChangePasswordSection = false"
+      @password-changed="passwordChangeSuccessfull"
+    />
   </div>
   <div v-if="displaySuccessMessage" class="text-center mt-5">
     <p class="font-semibold text-xl">Passwort wurde erfolgreich geändert!</p>
@@ -17,7 +24,12 @@
 <script setup lang="ts">
   const user = useStrapiUser();
 
-  // ## refs ## 
+  // page
+  useHead({
+    title: "Profil - Schrum",
+  });
+
+  // ## refs ##
   const displayChangePasswordSection = ref(false);
   const displaySuccessMessage = ref(false);
 
@@ -25,5 +37,5 @@
   const passwordChangeSuccessfull = () => {
     displayChangePasswordSection.value = false;
     displaySuccessMessage.value = true;
-  }
+  };
 </script>

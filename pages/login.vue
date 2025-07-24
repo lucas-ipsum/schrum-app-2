@@ -17,6 +17,7 @@
           type="password"
         />
         <SharedSubmitButton text="Einloggen" @submit="onSubmit" />
+        <p v-if="displayErrorMessage">E-Mail oder Passwort falsch.</p>
       </div>
     </div>
   </div>
@@ -26,15 +27,24 @@
   const { login } = useStrapiAuth();
   const router = useRouter();
 
+  // page
+  useHead({
+    title: "Login - Schrum",
+  });
+
   // ## refs ##
   const email = ref("");
   const password = ref("");
+  const displayErrorMessage = ref(false);
 
   const onSubmit = async () => {
     try {
       await login({ identifier: email.value, password: password.value });
       useUserStore().loginUser();
       router.push("/");
-    } catch (e) {}
+    } catch (e) {
+      console.error("An error occured: ", e);
+      displayErrorMessage.value = true;
+    }
   };
 </script>

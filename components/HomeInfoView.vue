@@ -47,13 +47,12 @@
   // ## Refs ##
   const navbarOpen = ref(false);
 
-  //const store = useFestivalInformationStore();
-  //const { festivalInformation } = storeToRefs(store);
+  const store = useFestivalInformationStore();
+  const { festivalInformation } = storeToRefs(store);
 
     const { find } = useStrapi();
 
   // ## Refs ##
-  const festivalInformation = ref(null);
 
   // ### Events ###
   onMounted(() => {

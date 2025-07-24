@@ -10,7 +10,7 @@
       <NavbarLink link="/profile" title="Profil" />
 
       <div class="ml-auto">
-        <button @click="onClick">
+        <button class="cursor-pointer" @click="onClick">
           <font-awesome :icon="['fas', 'right-from-bracket']" />
         </button>
       </div>

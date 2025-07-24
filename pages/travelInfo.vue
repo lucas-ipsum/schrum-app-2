@@ -23,14 +23,20 @@
     <h2 class="text-stone-300 text-3xl sm:text-5xl font-semibold">Anreise</h2>
   </div>
   <div class="px-4 sm:px-16">
-    <GeneralInfo :travelInformation="travelInformation" />
+    <GeneralInfo
+      v-if="travelInformation"
+      :travelInformation="travelInformation"
+    />
     <!-- By car section -->
     <h2
       class="text-stone-300 text-xl text-center sm:text-2xl font-semibold mb-4 mt-6"
     >
       Mit dem Auto
     </h2>
-    <CarSection :travelInformation="travelInformation" />
+    <CarSection
+      v-if="travelInformation"
+      :travelInformation="travelInformation"
+    />
 
     <!-- train section -->
     <h2
@@ -38,17 +44,11 @@
     >
       Mit dem Zug
     </h2>
-    <TrainSection :travelInformation="travelInformation" />
+    <TrainSection
+      v-if="travelInformation"
+      :travelInformation="travelInformation"
+    />
   </div>
-  <PopupImage
-    @displayPopupChange="(res) => (displayMap = res)"
-    :displayPopup="displayMap"
-    imgSrc='http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg'
-  >
-  <template #image>
-    <img src="http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg" alt="Fullscreen Image" @click.stop />
-  </template>
-  </PopupImage>
 </template>
 
 <!-- Specify the layout -->
@@ -57,6 +57,11 @@
   import GeneralInfo from "~/components/travelInfo/GeneralInfo.vue";
   import TrainSection from "~/components/travelInfo/TrainSection.vue";
   import { format } from "date-fns";
+
+  // page
+  useHead({
+    title: "Anreise - Schrum",
+  });
 
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
@@ -69,7 +74,18 @@
   const travelInformation = ref(null);
   const displayMap = ref(false);
 
+  // events
+  onMounted(() => {
+    getData();
+  });
+
   // ## Api call ##
-  const res = await find("travel-information");
-  travelInformation.value = res.data;
+  const getData = async () => {
+    try {
+      const res = await find("travel-information");
+      travelInformation.value = res.data;
+    } catch (err) {
+      console.error("An error occured: ", err);
+    }
+  };
 </script>

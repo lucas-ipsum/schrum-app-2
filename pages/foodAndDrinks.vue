@@ -29,6 +29,11 @@
 <script setup>
   import { format } from "date-fns";
 
+// page
+useHead({
+  title: 'Essen & Getränke - Schrum',
+})
+
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
 

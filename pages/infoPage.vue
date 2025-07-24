@@ -33,6 +33,11 @@
   // Strapi
   const { find } = useStrapi();
 
+  // page
+  useHead({
+    title: "Infos - Schrum",
+  });
+
   // ## refs ##
   const generalInformation = ref(null);
 

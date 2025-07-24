@@ -46,6 +46,8 @@
       });
       emit("passwordChanged")
       // $toast.success('Password changed!')
-    } catch (e) {}
+    } catch (e) {
+      console.error('An error occured: ',e)
+    }
   };
 </script>
