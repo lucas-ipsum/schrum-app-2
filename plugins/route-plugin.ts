@@ -3,7 +3,6 @@ export default defineNuxtPlugin(() => {
   addRouteMiddleware(
     "global-middleware",
     (to, from) => {
-      console.log(jwt.value);
       if (!jwt.value) {
         // Redirect to the login page
         console.log('redirect to login')

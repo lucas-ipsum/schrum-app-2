@@ -57,7 +57,6 @@
       }));
 
       artists.value.forEach((obj) => {
-        console.log(obj.performanceEvent.getDay());
         if (obj.performanceEvent.getDay() == 5) {
           artistsFriday.value.push(obj);
         } else {
