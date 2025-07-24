@@ -1,5 +1,5 @@
 <template>
-    <li :class="route.path === link ? 'bg-green-800' : ''" class="hover:bg-green-800 px-3 font-semibold"><NuxtLink :to="link">{{ title }}</NuxtLink></li>
+    <li @click="$emit('linkChanged')" :class="route.path === link ? 'bg-green-800' : ''" class="hover:bg-green-800 px-3 font-semibold"><NuxtLink :to="link">{{ title }}</NuxtLink></li>
 </template>
 
 <script setup>
@@ -18,4 +18,5 @@ const props = defineProps({
 
 const route = useRoute();
 
+  const emit = defineEmits(["displayPopupChange"]);
 </script>
