@@ -36,6 +36,10 @@
       <div>
         <AnnoucementsOverview />
       </div>
+      <!-- Spotify embedded playlist -->
+      <div>
+        <SpotifyEmbeddedPlaylist />
+      </div>
     </div>
   </div>
 </template>
@@ -50,7 +54,7 @@
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
 
-    const { find } = useStrapi();
+  const { find } = useStrapi();
 
   // ## Refs ##
 
