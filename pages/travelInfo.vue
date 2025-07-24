@@ -43,11 +43,15 @@
   <PopupImage
     @displayPopupChange="(res) => (displayMap = res)"
     :displayPopup="displayMap"
-    imgSrc='http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg'
+    imgSrc="http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg"
   >
-  <template #image>
-    <img src="http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg" alt="Fullscreen Image" @click.stop />
-  </template>
+    <template #image>
+      <img
+        src="http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg"
+        alt="Fullscreen Image"
+        @click.stop
+      />
+    </template>
   </PopupImage>
 </template>
 
@@ -69,7 +73,18 @@
   const travelInformation = ref(null);
   const displayMap = ref(false);
 
+  // events
+  onMounted(() => {
+    getData();
+  });
+
   // ## Api call ##
-  const res = await find("travel-information");
-  travelInformation.value = res.data;
+  const getData = async () => {
+    try {
+      const res = await find("travel-information");
+      travelInformation.value = res.data;
+    } catch (err) {
+      console.error("An error occured: ", err);
+    }
+  };
 </script>

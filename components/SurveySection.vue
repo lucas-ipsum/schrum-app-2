@@ -254,13 +254,17 @@
 
   // check for available data
   const checkForExcistingData = async () => {
-    const { data } = await find("survey-answears", {
-      filters: { user_id: user.id },
-    });
-    if (data[0]) {
-      currentSurveyId.value = data[0].documentId;
-      surveyDataExists.value = true;
-      surveyResponse.value = data[0].response;
+    try {
+      const { data } = await find("survey-answears", {
+        filters: { user_id: user.id },
+      });
+      if (data[0]) {
+        currentSurveyId.value = data[0].documentId;
+        surveyDataExists.value = true;
+        surveyResponse.value = data[0].response;
+      }
+    } catch (err) {
+      console.error('An error occured while loading data: ', err);
     }
   };
   // data checks

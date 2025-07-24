@@ -35,7 +35,18 @@
   const store = useFestivalInformationStore();
   const { festivalInformation } = storeToRefs(store);
 
+  // events
+  onMounted(() => {
+    getData();
+  });
+
   // ## Api call ##
-  const res = await find("packing-list");
-  packingList.value = res.data;
+  const getData = async () => {
+    try {
+      const res = await find("packing-list");
+      packingList.value = res.data;
+    } catch (err) {
+      console.error("An error occured: ", err);
+    }
+  };
 </script>
