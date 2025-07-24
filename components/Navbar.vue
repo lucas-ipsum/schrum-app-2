@@ -8,6 +8,7 @@
       <NavbarLink link="/packingList" title="Packliste" />
       <NavbarLink link="/foodAndDrinks" title="Essen & Getränke" />
       <NavbarLink link="/profile" title="Profil" />
+      <NavbarLink v-if="user.isAdmin" link="/adminPage" title="Admin" />
 
       <div class="ml-auto">
         <button class="cursor-pointer" @click="onClick">
@@ -18,7 +19,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
   const { logout } = useStrapiAuth();
   const router = useRouter();
   const user = useStrapiUser();
