@@ -56,13 +56,6 @@
     const { data } = await findOne("artists", props.artistDocumentId);
     artistData.value = data;
   };
-
-  // ## helper methods
-  const getBrandIcon = (url) => {
-    if (url && url.includes("spotify")) {
-      return "spotify";
-    }
-  };
 </script>
 
 <style scoped>
