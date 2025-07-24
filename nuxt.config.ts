@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   ],
   fontawesome: {
     icons: {
-      solid: ["circle", "dollar-sign", "right-from-bracket"],
+      solid: ["circle", "dollar-sign", "right-from-bracket", "bars"],
       brands: ["spotify", "soundcloud"],
     },
   },

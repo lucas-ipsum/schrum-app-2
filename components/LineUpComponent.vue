@@ -2,7 +2,7 @@
   <!-- Friday -->
   <h3 class="text-stone-300 text-xl sm:text-2xl font-bold">Freitag</h3>
   <div class="wrap">
-    <div class="flex flex-wrap text-xl font-semibold">
+    <div class="flex flex-wrap gap-3 sm:gap-0 text-xl font-semibold">
       <div class="flex w-fit" v-for="(artist, index) in artistsFriday">
         <div
           @click="handleDisplayArtistsDetails(artist)"
@@ -14,7 +14,7 @@
           <div class="font-medium">({{ artist.genre }})</div>
         </div>
         <!-- Divider -->
-        <div v-if="index < artistsFriday.length - 1" class="my-auto mx-2">
+        <div v-if="index < artistsFriday.length - 1" class="my-auto mx-2 hidden sm:block">
           *
         </div>
       </div>
@@ -24,7 +24,7 @@
   <!-- Saturday -->
   <h3 class="text-stone-300 text-xl sm:text-2xl font-bold">Samstag</h3>
   <div class="wrap">
-    <div class="flex flex-wrap text-xl text-nowrap font-semibold">
+    <div class="flex flex-wrap gap-3 sm:gap-0 text-xl text-nowrap font-semibold">
       <div class="flex w-fit" v-for="(artist, index) in artistsSaturday">
         <div
           @click="handleDisplayArtistsDetails(artist)"
@@ -36,7 +36,7 @@
           <div class="font-medium">({{ artist.genre }})</div>
         </div>
         <!-- Divider -->
-        <div v-if="index < artistsSaturday.length - 1" class="my-auto mx-2">
+        <div v-if="index < artistsSaturday.length - 1" class="my-auto mx-2 hidden sm:block">
           *
         </div>
       </div>
@@ -64,7 +64,6 @@
 
   // ## events
   const handleDisplayArtistsDetails = (artist) => {
-    console.log(artist);
     currentDetailArtist.value = artist.documentId;
     displayArtistDetails.value = true;
   };

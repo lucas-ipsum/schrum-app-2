@@ -4,7 +4,7 @@
       <h1 class="font-bold text-4xl">{{ artistData?.name }}</h1>
       <p class="font-semibold">{{ artistData?.genre }}</p>
       <p>{{ artistData?.description }}</p>
-      <div class="w-full flex justify-evenly">
+      <div v-if="artistData?.musicExample" class="w-full flex justify-evenly">
         <a
           class="cursor-pointer"
           :href="artistData?.musicExample"
@@ -55,13 +55,6 @@
   const getData = async () => {
     const { data } = await findOne("artists", props.artistDocumentId);
     artistData.value = data;
-  };
-
-  // ## helper methods
-  const getBrandIcon = (url) => {
-    if (url && url.includes("spotify")) {
-      return "spotify";
-    }
   };
 </script>
 
