@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ financeInfoList }}
+        Kommt noch ...
     </div>
 </template>
 

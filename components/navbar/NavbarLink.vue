@@ -18,5 +18,5 @@ const props = defineProps({
 
 const route = useRoute();
 
-  const emit = defineEmits(["displayPopupChange"]);
+  const emit = defineEmits(["linkChanged"]);
 </script>
