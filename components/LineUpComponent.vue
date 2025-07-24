@@ -4,7 +4,10 @@
   <div class="wrap">
     <div class="flex flex-wrap text-xl font-semibold">
       <div class="flex w-fit" v-for="(artist, index) in artistsFriday">
-        <div class="flex flex-col w-fit my-1">
+        <div
+          @click="handleDisplayArtistsDetails(artist)"
+          class="flex flex-col w-fit my-1 cursor-pointer"
+        >
           <div class="w-fit bg-green-800 px-1">
             {{ artist.name }}
           </div>
@@ -23,7 +26,10 @@
   <div class="wrap">
     <div class="flex flex-wrap text-xl text-nowrap font-semibold">
       <div class="flex w-fit" v-for="(artist, index) in artistsSaturday">
-        <div class="flex flex-col w-fit my-1">
+        <div
+          @click="handleDisplayArtistsDetails(artist)"
+          class="flex flex-col w-fit my-1 cursor-pointer"
+        >
           <div class="w-fit bg-green-800 px-1">
             {{ artist.name }}
           </div>
@@ -36,32 +42,30 @@
       </div>
     </div>
   </div>
+
+  <!-- Detail Popup -->
+  <artist-detail-popup v-if="displayArtistDetails" :artist-document-id="currentDetailArtist" @display-popup-change="displayArtistDetails = !displayArtistDetails" />
 </template>
 
 <script setup>
   // TODO Friday and Saturday should be not duplicated code
 
-const props = defineProps({
-  artistsFriday: {
-    type: Array
-  },
-  artistsSaturday: {
-    type: Array
-  }
-})
-/*
-  const artistsFriday = ref([
-    {
-      name: "Test",
-      genre: "Test",
+  const props = defineProps({
+    artistsFriday: {
+      type: Array,
     },
-  ]);
+    artistsSaturday: {
+      type: Array,
+    },
+  });
 
-  const artistsSaturday = ref([
-    {
-      name: "Test",
-      genre: "Test",
-    },
-  ]);
-  */
+  const displayArtistDetails = ref(false);
+  const currentDetailArtist = ref(false);
+
+  // ## events
+  const handleDisplayArtistsDetails = (artist) => {
+    console.log(artist);
+    currentDetailArtist.value = artist.documentId;
+    displayArtistDetails.value = true;
+  };
 </script>

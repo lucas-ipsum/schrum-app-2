@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   fontawesome: {
     icons: {
       solid: ["circle", "dollar-sign", "right-from-bracket"],
+      brands: ["spotify", "soundcloud"],
     },
   },
   strapi: {
