@@ -11,7 +11,7 @@
           :src="
             useIsDev().isDev
               ? 'http://localhost:1337/uploads/schrum_logo_25_fbda9a094a.jpg'
-              : ''
+              : 'https://strapi-cms.schrum.xyz/uploads/schrum_logo_25_bc52d7a486.jpg'
           "
           alt=""
         />

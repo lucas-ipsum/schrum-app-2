@@ -40,7 +40,11 @@
   <PopupImage
     @displayPopupChange="(res) => (displayMap = res)"
     :displayPopup="displayMap"
-    imgSrc="http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg"
+    :imgSrc="
+      useIsDev().isDev
+        ? 'http://localhost:1337/uploads/map_travel_info_77155e18d6.jpg'
+        : 'https://strapi-cms.schrum.xyz/uploads/map_travel_info_6ce9637132.jpg'
+    "
   />
 </template>
 
