@@ -49,8 +49,10 @@
     if (isObject(value)) {
       let tmp = "";
       Object.keys(value).forEach((key) => {
-        if (value[key]) {
+        if (value[key] && typeof value[key] === 'boolean') {
           tmp = tmp + key + ",";
+        } else if (typeof value[key] === 'string' && value[key] !== '') {
+            tmp = tmp + `${key}: ${value[key]} `;
         }
       });
       if (tmp[tmp.length - 1] == ",") {
