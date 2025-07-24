@@ -11,7 +11,12 @@ export default defineNuxtConfig({
       allowedHosts: ["schrum.xyz"], // Add your host here
     },
   },
-  modules: ["@nuxtjs/strapi", "@vesp/nuxt-fontawesome", "@pinia/nuxt"],
+  modules: [
+    "@nuxtjs/strapi",
+    "@vesp/nuxt-fontawesome",
+    "@pinia/nuxt",
+    "@nuxt/image",
+  ],
   fontawesome: {
     icons: {
       solid: ["circle", "dollar-sign", "right-from-bracket"],
@@ -35,4 +40,3 @@ export default defineNuxtConfig({
     cookieName: "strapi_jwt",
   },
 });
-
