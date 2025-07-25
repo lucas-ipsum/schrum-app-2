@@ -1,11 +1,20 @@
 <template>
   <div v-if="jwt" class="w-full">
     <button class="cursor-pointer sm:hidden" @click="handleClickBurgerMenu">
-      <font-awesome :icon="['fas', 'bars']" size="2xl" />
+      <font-awesome
+        v-if="!openNavbarMobile"
+        :icon="['fas', 'bars']"
+        size="2xl"
+      />
+      <font-awesome
+        v-if="openNavbarMobile"
+        :icon="['fas', 'x']"
+        size="2xl"
+      />
     </button>
     <ul
       id="navbar"
-      class="sm:flex flex-col sm:flex-row text-center flex-wrap gap-3 w-full"
+      class="sm:flex flex-col sm:flex-row text-center flex-wrap gap-3 w-full sm:mt-0 mt-2"
       :class="!openNavbarMobile ? 'hidden' : ''"
     >
       <NavbarLink
