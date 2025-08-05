@@ -247,6 +247,14 @@
     { deep: true }
   );
 
+  watch(displayMessage, () => {
+    if (displayMessage.value) {
+      setTimeout(() => {
+        displayMessage.value = false;
+      }, 5000); 
+    }
+  });
+
   // check for available data
   const checkForExcistingData = async () => {
     try {
