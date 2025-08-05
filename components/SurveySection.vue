@@ -32,7 +32,10 @@
             value="tent"
             v-model="surveyResponse.attending.tent"
           />
-          <label class="ml-2" for="tent">Mit Zelt (hier nur eine Person pro Zelt angeben, wollen ungefähr wissen für wie viele Zelte wir Platz brauchen)</label>
+          <label class="ml-2" for="tent"
+            >Mit Zelt (hier nur eine Person pro Zelt angeben, wollen ungefähr
+            wissen für wie viele Zelte wir Platz brauchen)</label
+          >
         </div>
       </div>
     </div>
@@ -172,11 +175,13 @@
         v-if="!surveyDataExists"
         text="Absenden"
         @submit="submitData"
+        :disabled="requestInProgress"
       />
       <shared-submit-button
         v-if="surveyDataExists"
         text="Änderungen absenden"
         @submit="submitData"
+        :disabled="requestInProgress"
       />
     </div>
     <!-- Error / success message-->
@@ -192,6 +197,7 @@
   // dsiplay values
   const displayMessage = ref(false);
   const messageContent = ref(false);
+  const requestInProgress = ref(false);
 
   const surveyDataExists = ref(false);
   const currentSurveyId = ref(null);
@@ -241,6 +247,14 @@
     { deep: true }
   );
 
+  watch(displayMessage, () => {
+    if (displayMessage.value) {
+      setTimeout(() => {
+        displayMessage.value = false;
+      }, 5000); 
+    }
+  });
+
   // check for available data
   const checkForExcistingData = async () => {
     try {
@@ -276,20 +290,25 @@
 
   // submit data
   const submitData = async () => {
+    if (requestInProgress.value) {
+      return;
+    }
+    requestInProgress.value = true;
     checkData();
     try {
       // update survey data
-      if (surveyDataExists.value) {
+      if (surveyDataExists.value && currentSurveyId.value) {
         await update("survey-answears", currentSurveyId.value, {
           response: surveyResponse.value,
           user_id: user.value.id,
         });
         // create survey data
-      } else {
-        await create("survey-answears", {
+      } else if (!surveyDataExists.value) {
+        const { data } = await create("survey-answears", {
           response: surveyResponse.value,
           user_id: user.value.id,
         });
+        currentSurveyId.value = data.documentId;
       }
       surveyDataExists.value = true;
       displayMessage.value = true;
@@ -299,6 +318,8 @@
       messageContent.value =
         "Fehler beim absenden der Umfrage aufgetreten. Bitte erneut versuchen!";
       console.error(err);
+    } finally {
+      requestInProgress.value = false;
     }
   };
 </script>
