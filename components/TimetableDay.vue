@@ -42,15 +42,16 @@
   };
 
   const sortStartTime = () => {
-    // artistsFestivalFormat.value.sort((a, b) => a.festivalTimeFormat.startHour - b.festivalTimeFormat.startHour)
     artistsFestivalFormat.value.sort((a, b) => {
         if (a.festivalTimeFormat.startHour !== b.festivalTimeFormat.startHour) {
             return a.festivalTimeFormat.startHour - b.festivalTimeFormat.startHour
         } else {
-            a.festivalTimeFormat.startMinute - b.festivalTimeFormat.startMinute
+            return a.festivalTimeFormat.startMinute - b.festivalTimeFormat.startMinute
         }
     })
   }
+
+  // add method to add time difference ti each artist object and calculate the complete time for the day
 
   const calcDiffHours = (e1EndH, e2StartH) => {
     return (e2StartH - e1EndH) * 60;
