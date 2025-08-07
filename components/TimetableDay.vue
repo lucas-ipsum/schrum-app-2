@@ -1,9 +1,20 @@
 <template>
-  <div class="flex w-full justify-center">
-    <div class="alternating-lines-background w-[600px]">
-      <div v-for="artist in artistsFestivalFormat" class="flex justify-center">
-        <div class="bg-green-800 h-[89px] mt-[1px] w-[300px]">
-          {{ artist.name }}
+  <div class="flex justify-center">
+    <div
+      class="alternating-lines-background flex flex-col justify-center w-[600px]"
+      :style="{ height: `${dayInMinutes * 1.5}px` }"
+    >
+      <div
+        v-for="artist in artistsFestivalFormat"
+        class="flex justify-center"
+        :style="{
+          height: `${artist.duration * 1.5 - 1}px`,
+          marginTop: `${artist.timeDiffToPrevEvent * 1.5 + 1}px`,
+        }"
+      >
+        <div class="bg-green-800 w-[300px] p-2">
+          {{ artist.name }} {{ artist.timeDiffToPrevEvent }}
+          {{ artist.duration }}
         </div>
       </div>
     </div>
@@ -19,11 +30,11 @@
 
   // ## refs ##
   const artistsFestivalFormat = ref([]);
+  const dayInMinutes = ref(0);
 
   // ## helper methods ##
   const formatFestivalTimes = () => {
     for (let i = 0; i < props.artists.length; i++) {
-        console.log(typeof props.artists[i].performanceEventEndTime)
       let festivalTimeFormat = {
         startHour: getExtendedHours(
           props.artists[i].performanceEvent.getHours()
@@ -34,27 +45,63 @@
           props.artists[i].performanceEventEndTime.getHours()
         ),
       };
-      artistsFestivalFormat.value.push({...props.artists[i], festivalTimeFormat})
-      console.log(festivalTimeFormat)
+      artistsFestivalFormat.value.push({
+        ...props.artists[i],
+        festivalTimeFormat,
+      });
     }
     // start sorting after formating
     sortStartTime();
   };
-
+  // :class="`h-[${artist.duration * 1.5}px] mt-[${artist.timeDiffToPrevEvent * 1.5}px]`
   const sortStartTime = () => {
     artistsFestivalFormat.value.sort((a, b) => {
-        if (a.festivalTimeFormat.startHour !== b.festivalTimeFormat.startHour) {
-            return a.festivalTimeFormat.startHour - b.festivalTimeFormat.startHour
-        } else {
-            return a.festivalTimeFormat.startMinute - b.festivalTimeFormat.startMinute
-        }
-    })
-  }
+      if (a.festivalTimeFormat.startHour !== b.festivalTimeFormat.startHour) {
+        return a.festivalTimeFormat.startHour - b.festivalTimeFormat.startHour;
+      } else {
+        return (
+          a.festivalTimeFormat.startMinute - b.festivalTimeFormat.startMinute
+        );
+      }
+    });
+    getTimeDifference();
+  };
 
   // add method to add time difference ti each artist object and calculate the complete time for the day
 
-  const calcDiffHours = (e1EndH, e2StartH) => {
-    return (e2StartH - e1EndH) * 60;
+  const getTimeDifference = () => {
+    for (let i = 0; i < artistsFestivalFormat.value.length; i++) {
+      let event = artistsFestivalFormat.value[i];
+      let timeDiffToPrevEvent;
+      // condition first event of the day
+      if (i === 0) {
+        timeDiffToPrevEvent = calcDiffMinutes(
+          event.festivalTimeFormat.startHour,
+          event.festivalTimeFormat.startHour,
+          0,
+          event.festivalTimeFormat.startMinute
+        );
+      } else {
+        timeDiffToPrevEvent = calcDiffMinutes(
+          artistsFestivalFormat.value[i - 1].festivalTimeFormat.endHour,
+          event.festivalTimeFormat.startHour,
+          artistsFestivalFormat.value[i - 1].festivalTimeFormat.endMinute,
+          event.festivalTimeFormat.startMinute
+        );
+      }
+      console.log(timeDiffToPrevEvent);
+      artistsFestivalFormat.value[i].timeDiffToPrevEvent = timeDiffToPrevEvent;
+      // get duration in minutes
+      artistsFestivalFormat.value[i].duration = calcDiffMinutes(
+        event.festivalTimeFormat.startHour,
+        event.festivalTimeFormat.endHour,
+        event.festivalTimeFormat.startMinute,
+        event.festivalTimeFormat.endMinute
+      );
+      dayInMinutes.value +=
+        artistsFestivalFormat.value[i].duration +
+        artistsFestivalFormat.value[i].timeDiffToPrevEvent;
+    }
   };
 
   const calcDiffMinutes = (e1EndH, e2StartH, e1EndM, e2StartM) => {
@@ -66,7 +113,7 @@
     if (hour <= 6) {
       return hour + 24;
     } else {
-        return hour
+      return hour;
     }
   };
   // ## events ##
@@ -79,15 +126,14 @@
     { immediate: true }
   );
   */
- onMounted(() => {
+  onMounted(() => {
     formatFestivalTimes();
- })
+  });
 </script>
 
 <style scoped>
   .alternating-lines-background {
     margin: 0;
-    height: 200px;
     background-image: radial-gradient(circle, white 1px, transparent 1px),
       repeating-linear-gradient(
         to bottom,
