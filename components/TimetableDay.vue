@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center w-full">
     <div
-      class="alternating-lines-background flex flex-col justify-center w-[600px]"
+      class="alternating-lines-background flex flex-col justify-center w-full sm:w-[600px]"
       :style="{ height: `${dayInMinutes * 1.5}px` }"
     >
       <div
@@ -12,16 +12,33 @@
           marginTop: `${artist.timeDiffToPrevEvent * 1.5 + 1}px`,
         }"
       >
-        <div class="bg-green-800 w-[300px] p-2">
-          {{ artist.name }} {{ artist.timeDiffToPrevEvent }}
-          {{ artist.duration }}
+        <div
+          @click="handleDisplayArtistsDetails(artist)"
+          class="bg-green-800 w-[90%] sm:w-[350px] p-2 text-xl flex cursor-pointer"
+          :class="
+            artist.duration < 45 ? 'flex-row gap-1' : 'flex-col text-center'
+          "
+        >
+          <p>
+            {{ format(artist.performanceEvent, "HH:mm") }} -
+            {{ format(artist.performanceEventEndTime, "HH:mm") }}
+          </p>
+          <p class="font-bold">{{ artist.name }}</p>
         </div>
       </div>
     </div>
   </div>
+  <!-- Detail Popup -->
+  <artist-detail-popup
+    v-if="displayArtistDetails"
+    :artist-document-id="currentDetailArtist"
+    @display-popup-change="displayArtistDetails = !displayArtistDetails"
+  />
 </template>
 
 <script setup>
+  import { format } from "date-fns";
+
   const props = defineProps({
     artists: {
       type: Array,
@@ -31,6 +48,9 @@
   // ## refs ##
   const artistsFestivalFormat = ref([]);
   const dayInMinutes = ref(0);
+  // display refs
+  const displayArtistDetails = ref(false);
+  const currentDetailArtist = ref(false);
 
   // ## helper methods ##
   const formatFestivalTimes = () => {
@@ -117,18 +137,14 @@
     }
   };
   // ## events ##
-  /*
-  watch(
-    props.artists,
-    () => {
-      formatFestivalTimes();
-    },
-    { immediate: true }
-  );
-  */
   onMounted(() => {
     formatFestivalTimes();
   });
+
+  const handleDisplayArtistsDetails = (artist) => {
+    currentDetailArtist.value = artist.documentId;
+    displayArtistDetails.value = true;
+  };
 </script>
 
 <style scoped>
