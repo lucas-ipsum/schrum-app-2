@@ -56,6 +56,7 @@
       artists.value = res.data.map((artist) => ({
         ...artist,
         performanceEvent: new Date(artist.performanceEvent),
+        performanceEventEndTime: new Date(artist.performanceEventEndTime)
       }));
 
       artists.value.forEach((obj) => {
