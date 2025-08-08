@@ -23,9 +23,11 @@
       :artists-saturday="artistsSaturday"
     />
     <div v-if="!lineUpActive">
-      <h2 class="text-stone-300 text-xl sm:text-3xl font-semibold px-2">
-        Kommt noch ...
-      </h2>
+      <TimetableOverview
+        :artists-friday="artistsFriday"
+        :artists-saturday="artistsSaturday"
+      />
+
     </div>
   </div>
 </template>
@@ -54,6 +56,7 @@
       artists.value = res.data.map((artist) => ({
         ...artist,
         performanceEvent: new Date(artist.performanceEvent),
+        performanceEventEndTime: new Date(artist.performanceEventEndTime)
       }));
 
       artists.value.forEach((obj) => {
