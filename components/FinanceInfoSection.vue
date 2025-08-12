@@ -21,10 +21,8 @@
     () => props.financeInfoList,
     (newVal) => {
       if (newVal) {
-        console.log("change");
         // Execute code if myProp changes and is truthy
         contentFinanceInfo.value = $markdown.render(props.financeInfoList);
-        console.log(contentFinanceInfo.value);
       }
     }
   );

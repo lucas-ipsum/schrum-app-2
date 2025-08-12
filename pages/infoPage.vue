@@ -28,6 +28,9 @@
     <FinanceInfoSection
       :finance-info-list="generalInformation?.hygieneInformation"
     />
+    <FinanceInfoSection
+      :finance-info-list="generalInformation?.additionalInformation"
+    />
   </div>
   <div class="px-4 sm:px-16"></div>
 </template>
