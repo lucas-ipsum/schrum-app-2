@@ -21,11 +21,18 @@
       Allgemeine Infos
     </h2>
   </div>
-  <div class="px-4 sm:px-16">
+  <div class="px-4 sm:px-16 flex flex-col gap-10">
     <FinanceInfoSection
       :finance-info-list="generalInformation?.paymentInformations"
     />
+    <FinanceInfoSection
+      :finance-info-list="generalInformation?.hygieneInformation"
+    />
+    <FinanceInfoSection
+      :finance-info-list="generalInformation?.additionalInformation"
+    />
   </div>
+  <div class="px-4 sm:px-16"></div>
 </template>
 
 <script setup>
