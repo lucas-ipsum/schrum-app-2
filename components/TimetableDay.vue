@@ -14,7 +14,7 @@
       >
         <div
           @click="handleDisplayArtistsDetails(artist)"
-          class="bg-green-800 w-[90%] sm:w-[350px] p-2 flex cursor-pointer"
+          class="bg-primary w-[90%] sm:w-[350px] p-2 flex cursor-pointer"
           :class="
             artist.duration < 45 ? 'flex-row gap-1 text-sm' : 'flex-col text-center text-xl'
           "

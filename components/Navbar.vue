@@ -28,6 +28,7 @@
         @link-changed="openNavbarMobile = false"
       />
       <NavbarLink
+        v-if="!useAppSettingStore().appSettings?.prevModeNextYear"
         link="/survey"
         title="Umfrage"
         @link-changed="openNavbarMobile = false"

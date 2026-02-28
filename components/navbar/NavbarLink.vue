@@ -1,5 +1,5 @@
 <template>
-    <li @click="$emit('linkChanged')" :class="route.path === link ? 'bg-green-800' : ''" class="hover:bg-green-800 py-1 sm:py-0 px-3 sm:text-lg text-xl font-bold sm:font-semibold"><NuxtLink :to="link">{{ title }}</NuxtLink></li>
+    <li @click="$emit('linkChanged')" :class="route.path === link ? 'bg-primary' : ''" class="hover:bg-primary py-1 sm:py-0 px-3 sm:text-lg text-xl font-bold sm:font-semibold"><NuxtLink :to="link">{{ title }}</NuxtLink></li>
 </template>
 
 <script setup>
