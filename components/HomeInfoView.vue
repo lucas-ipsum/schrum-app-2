@@ -10,7 +10,7 @@
           class="rounded w-[80%] md:w-[350px] my-3"
           :src="
             useIsDev().isDev
-              ? 'http://localhost:1337/uploads/schrum_logo_25_fbda9a094a.jpg'
+              ? 'http://localhost:1337/uploads/schrum_logo_26_ex_2_58fb884a21.png'
               : 'https://strapi-cms.schrum.xyz/uploads/schrum_logo_25_bc52d7a486.jpg'
           "
           alt=""
