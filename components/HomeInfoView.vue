@@ -1,6 +1,8 @@
 <template>
   <div v-if="appSettings?.prevModeNextYear" class="h-full">
-    <div class="flex flex-col gap-3 justify-center pt-[15%] text-center items-center">
+    <div
+      class="flex flex-col gap-3 justify-center pt-[15%] text-center items-center"
+    >
       <h1 class="text-stone-300 text-5xl sm:text-8xl font-extrabold">
         {{ festivalInformation?.name }}
       </h1>
@@ -18,7 +20,7 @@
         :src="
           useIsDev().isDev
             ? 'http://localhost:1337/uploads/schrum_logo_26_ex_2_58fb884a21.png'
-            : 'https://strapi-cms.schrum.xyz/uploads/schrum_logo_25_bc52d7a486.jpg'
+            : 'https://strapi-cms.schrum.xyz/uploads/schrum_logo_26_ex_2_3a921e062d.png'
         "
         alt=""
       />
@@ -37,7 +39,7 @@
           :src="
             useIsDev().isDev
               ? 'http://localhost:1337/uploads/schrum_logo_26_ex_2_58fb884a21.png'
-              : 'https://strapi-cms.schrum.xyz/uploads/schrum_logo_25_bc52d7a486.jpg'
+              : 'https://strapi-cms.schrum.xyz/uploads/schrum_logo_26_ex_2_3a921e062d.png'
           "
           alt=""
         />
