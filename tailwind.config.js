@@ -7,14 +7,5 @@ export default {
     "./pages/**/*.vue",
     "./app.vue",
   ],
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          DEFAULT: "#1d4ed8",
-        },
-      },
-    },
-  },
   plugins: [],
 }

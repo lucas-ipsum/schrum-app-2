@@ -8,7 +8,7 @@
           @click="handleDisplayArtistsDetails(artist)"
           class="flex flex-col w-fit my-1 cursor-pointer"
         >
-          <div class="w-fit bg-green-800 px-1">
+          <div class="w-fit bg-primary px-1">
             {{ artist.name }}
           </div>
           <div class="font-medium">({{ artist.genre }})</div>
@@ -30,7 +30,7 @@
           @click="handleDisplayArtistsDetails(artist)"
           class="flex flex-col w-fit my-1 cursor-pointer"
         >
-          <div class="w-fit bg-green-800 px-1">
+          <div class="w-fit bg-primary px-1">
             {{ artist.name }}
           </div>
           <div class="font-medium">({{ artist.genre }})</div>

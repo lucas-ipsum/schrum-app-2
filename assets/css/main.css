@@ -9,3 +9,8 @@
     background-color: black;
   }
 }
+
+
+@theme {
+  --color-primary: #851efb;
+}
