@@ -5,3 +5,7 @@ export interface FestivalInformation {
   startDate: Date;
   endDate: Date;
 }
+
+export interface AppSettings {
+  prevModeNextYear: boolean;
+}
