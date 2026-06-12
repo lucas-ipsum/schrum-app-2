@@ -12,8 +12,7 @@
       <iframe
         data-testid="embed-iframe"
         style="border-radius: 12px"
-        src="https://open.spotify.com/embed/playlist/72jgVJIoIkwDvhGcqgG9kL?utm_source=generator&theme=0"
-        width="100%"
+        src="https://open.spotify.com/embed/playlist/4TbL8fp6pnBr14kFRRqBm0?utm_source=generator&theme=0"        width="100%"
         height="450"
         frameBorder="0"
         allowfullscreen=""
