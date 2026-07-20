@@ -1,175 +1,60 @@
 <template>
-  <div class="flex flex-col gap-4 mx-3 sm:mx-[20%] sm:outline-2 sm:p-5">
-    <!-- Question 1 -->
-    <div class="">
-      <p class="font-3xl font-extrabold">Bist du dabei?</p>
-      <div class="flex flex-col gap-2 font-bold ml-2">
-        <div>
-          <input
-            type="checkbox"
-            id="friday"
-            name="friday"
-            value="friday"
-            v-model="surveyResponse.attending.friday"
-          />
-          <label class="ml-2" for="friday">Freitag</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="saturday"
-            name="saturday"
-            value="saturday"
-            v-model="surveyResponse.attending.saturday"
-          />
-          <label class="ml-2" for="saturday">Samstag</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="tent"
-            name="tent"
-            value="tent"
-            v-model="surveyResponse.attending.tent"
-          />
-          <label class="ml-2" for="tent"
-            >Mit Zelt (hier nur eine Person pro Zelt angeben, wollen ungefähr
-            wissen für wie viele Zelte wir Platz brauchen)</label
+  <div class="flex flex-col gap-6 mx-3 sm:mx-[20%]">
+    <!-- Logged in user -->
+    <!-- Add companion -->
+    <div class="flex justify-end w-full">
+      <shared-submit-button text="Friends hinzufügen" @submit="addCompanion" />
+    </div>
+
+    <div class="flex flex-col gap-4 sm:outline-2 sm:p-5">
+      <survey-person-form
+        :person="surveyResponse"
+        :shuttle-time-options="shuttleTimeOptions"
+      />
+    </div>
+
+    <!-- Companions -->
+    <div
+      v-for="(companion, index) in surveyResponse.companions"
+      :key="index"
+      class="flex flex-col outline-2"
+    >
+      <!-- Accordion header -->
+      <div class="flex justify-between items-center gap-2 p-3">
+        <button
+          type="button"
+          class="flex items-center gap-2 font-3xl font-extrabold cursor-pointer text-left grow"
+          @click="toggleCompanion(index)"
+        >
+          <span
+            class="inline-block transition-transform text-base"
+            :class="companionsOpen[index] ? 'rotate-90' : ''"
+            >▶</span
           >
-        </div>
+          <span>{{ companion.name?.trim() || `Friend ${index + 1}` }}</span>
+        </button>
+        <button
+          type="button"
+          class="outline-2 p-2 font-semibold cursor-pointer w-fit"
+          @click="removeCompanion(index)"
+        >
+          Entfernen
+        </button>
+      </div>
+      <!-- Accordion body -->
+      <div
+        v-show="companionsOpen[index]"
+        class="flex flex-col gap-4 p-3 pt-0 sm:px-5 sm:pb-5"
+      >
+        <survey-person-form
+          :person="companion"
+          show-name
+          :shuttle-time-options="shuttleTimeOptions"
+        />
       </div>
     </div>
 
-    <!-- Question Arrival -->
-    <div class="">
-      <p class="font-3xl font-extrabold">Anreise</p>
-      <div class="flex flex-col gap-2 font-bold ml-2">
-        <fieldset>
-          <div>
-            <input
-              type="radio"
-              id="car_driver"
-              name="arrival"
-              value="car_driver"
-              v-model="surveyResponse.arrival"
-            />
-            <label class="ml-2" for="car_driver">Auto Fahrer*in</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="car_passenger"
-              name="arrival"
-              value="car_passenger"
-              v-model="surveyResponse.arrival"
-            />
-            <label class="ml-2" for="car_passenger">Auto Beifahrer*in</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="train"
-              name="arrival"
-              value="train"
-              v-model="surveyResponse.arrival"
-            />
-            <label class="ml-2" for="train">Zug</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="other"
-              name="arrival"
-              value="other"
-              v-model="surveyResponse.arrival"
-            />
-            <label class="ml-2" for="other">Andere</label>
-          </div>
-        </fieldset>
-      </div>
-    </div>
-
-    <!-- Question Shuttle time -->
-    <div v-if="surveyResponse.arrival == 'train'" class="">
-      <p class="font-3xl font-extrabold">Abholzeit am Bahnhof:</p>
-      <div class="flex flex-col gap-2 font-bold ml-2">
-        <fieldset>
-          <div class="flex gap-2">
-            <select
-              name="shuttle_day"
-              id="shuttle_day"
-              v-model="surveyResponse.shuttle.day"
-            >
-              <option value="friday">Freitag</option>
-              <option value="saturday">Samstag</option>
-            </select>
-            <select
-              name="shuttle_time"
-              id="shuttle_time"
-              v-model="surveyResponse.shuttle.hour"
-            >
-              <option v-for="hour in shuttleTimeOptions" :value="hour">
-                {{ hour }} Uhr
-              </option>
-            </select>
-          </div>
-        </fieldset>
-      </div>
-    </div>
-
-    <!-- Question 3 -->
-    <div class="">
-      <p class="font-3xl font-extrabold">Bock auf Frühstück?</p>
-      <div class="flex flex-col gap-2 font-bold ml-2">
-        <div>
-          <input
-            type="checkbox"
-            id="saturday"
-            name="saturday"
-            value="saturday"
-            v-model="surveyResponse.breakfast.saturday"
-          />
-          <label class="ml-2" for="saturday">Samstag</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="sunday"
-            name="sunday"
-            value="sunday"
-            v-model="surveyResponse.breakfast.sunday"
-          />
-          <label class="ml-2" for="sunday">Sonntag</label>
-        </div>
-      </div>
-    </div>
-
-    <!-- Question 4 -->
-    <div class="">
-      <p class="font-3xl font-extrabold">Als Künstler*in dabei?</p>
-      <div class="flex flex-col gap-2 font-bold ml-2">
-        <div>
-          <input
-            type="checkbox"
-            id="yes"
-            name="yes"
-            value="yes"
-            v-model="surveyResponse.artist.isArtist"
-          />
-          <label class="ml-2" for="yes">Ja</label>
-        </div>
-        <div v-if="surveyResponse.artist.isArtist" class="flex flex-col">
-          <label class="ml-2" for="band_name">Band / Name:</label>
-          <input
-            class="bg-white rounded p-1 w-[250px] text-black"
-            type="text"
-            id="band_name"
-            name="band_name"
-            v-model="surveyResponse.artist.band_name"
-          />
-        </div>
-      </div>
-    </div>
+    <!-- Submit -->
     <div class="flex justify-center w-full">
       <shared-submit-button
         v-if="!surveyDataExists"
@@ -218,8 +103,8 @@
     "20:00",
   ]);
 
-  const surveyResponse = ref({
-    username: user?.value.username,
+  // Default answers for a single person (shared by the user and companions).
+  const createPersonResponse = () => ({
     attending: {
       friday: false,
       saturday: false,
@@ -240,6 +125,23 @@
     },
   });
 
+  // A companion additionally carries a name (they have no user account).
+  const createCompanionResponse = () => ({
+    name: "",
+    ...createPersonResponse(),
+  });
+
+  const surveyResponse = ref({
+    // The logged in user is identified by their username.
+    username: user?.value.username,
+    ...createPersonResponse(),
+    // Additional friends the user fills out the survey for.
+    companions: [],
+  });
+
+  // Accordion open/closed state, kept in sync with the companions array.
+  const companionsOpen = ref([]);
+
   // ## Events ##
   onMounted(() => {
     checkForExcistingData();
@@ -250,16 +152,32 @@
     () => {
       checkData();
     },
-    { deep: true }
+    { deep: true },
   );
 
   watch(displayMessage, () => {
     if (displayMessage.value) {
       setTimeout(() => {
         displayMessage.value = false;
-      }, 5000); 
+      }, 5000);
     }
   });
+
+  // ## companions ##
+  const addCompanion = () => {
+    surveyResponse.value.companions.push(createCompanionResponse());
+    // Open the newly added companion so it can be filled out right away.
+    companionsOpen.value.push(true);
+  };
+
+  const removeCompanion = (index) => {
+    surveyResponse.value.companions.splice(index, 1);
+    companionsOpen.value.splice(index, 1);
+  };
+
+  const toggleCompanion = (index) => {
+    companionsOpen.value[index] = !companionsOpen.value[index];
+  };
 
   // check for available data
   const checkForExcistingData = async () => {
@@ -271,6 +189,12 @@
         currentSurveyId.value = data[0].documentId;
         surveyDataExists.value = true;
         surveyResponse.value = data[0].response;
+        // Backwards compatibility for entries saved before companions existed.
+        if (!Array.isArray(surveyResponse.value.companions)) {
+          surveyResponse.value.companions = [];
+        }
+        // Start with all loaded companions collapsed.
+        companionsOpen.value = surveyResponse.value.companions.map(() => false);
       }
     } catch (err) {
       console.error("An error occured while loading data: ", err);
@@ -278,19 +202,20 @@
   };
   // data checks
   const checkData = () => {
+    normalizePerson(surveyResponse.value);
+    surveyResponse.value.companions.forEach(normalizePerson);
+  };
+
+  // Clear values that no longer apply for a single person.
+  const normalizePerson = (person) => {
     // train and shuttle time check
-    if (surveyResponse.value.arrival.train) {
-      surveyResponse.value.shuttle.day = null;
-      surveyResponse.value.shuttle.hour = null;
-    }
-    //
-    if (surveyResponse.value.breakfast.no_breakfast) {
-      surveyResponse.value.breakfast.saturday = false;
-      surveyResponse.value.breakfast.sunday = false;
+    if (person.arrival !== "train") {
+      person.shuttle.day = null;
+      person.shuttle.hour = null;
     }
     // artists section
-    if (!surveyResponse.value.artist.isArtist) {
-      surveyResponse.value.artist.band_name = "";
+    if (!person.artist.isArtist) {
+      person.artist.band_name = "";
     }
   };
 
