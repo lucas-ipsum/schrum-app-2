@@ -6,20 +6,22 @@
           <thead>
             <tr>
               <th
-                v-for="header in tableHeader"
+                v-for="column in columns"
+                :key="column.field"
                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold uppercase tracking-wider"
               >
-                {{ header }}
+                {{ column.header }}
               </th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="row in tableData">
               <td
-                v-for="element in row.response"
+                v-for="column in columns"
+                :key="column.field"
                 class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
               >
-                {{ convertToDisplayValues(element) }}
+                {{ convertToDisplayValues(row.response[column.field]) }}
               </td>
             </tr>
           </tbody>
@@ -35,11 +37,10 @@
       type: [Array, null],
       required: true,
     },
-    tableConfig: {
-      type: Array,
-      required: true,
-    },
-    tableHeader: {
+    // Ordered column definitions: [{ header, field }]. The same array drives
+    // both the header row and the body cells, so a header can never drift out
+    // of sync with the value rendered beneath it.
+    columns: {
       type: Array,
       required: true,
     },
