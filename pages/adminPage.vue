@@ -21,6 +21,7 @@
       Admin
     </h2>
   </div>
+  <admin-survey-metrics-section />
   <admin-survey-results-section />
   <div class="px-4 sm:px-16"></div>
 </template>
